@@ -4,8 +4,8 @@ import CoachesList from './pages/coaches/CoachesList.vue';
 import CoachDetail from './pages/coaches/CoachDetail.vue';
 import CoachRegistration from './pages/coaches/CoachRegistration.vue';
 import ContactCoach from './pages/requests/ContactCoach.vue';
-import RequestList from './pages/requests/RequestList.vue';
-import NotFound from './pages/NotFound.vue';
+import RequestList from './pages/requests/RequestsList.vue';
+// import NotFound from './pages/NotFound.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -23,7 +23,7 @@ const router = createRouter({
       component: CoachDetail,
       children: [
         {
-          path: '/contact',
+          path: 'contact',
           component: ContactCoach,
         },
       ],
@@ -38,7 +38,7 @@ const router = createRouter({
     },
     {
       path: '/:notFound(.*)',
-      component: NotFound,
+      component: null,
     },
   ],
 });

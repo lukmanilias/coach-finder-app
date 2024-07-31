@@ -1,0 +1,1 @@
+<template>Coach Register</template>
