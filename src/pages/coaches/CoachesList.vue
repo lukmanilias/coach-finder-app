@@ -1,14 +1,18 @@
 <template>
-  <section>FILTER</section>
+  <section>
+    <coach-filter @change-filter="setFilters"></coach-filter>
+  </section>
   <section>
     <base-card>
       <div class="controls">
         <base-button mode="outline">REFRESH</base-button>
-        <base-button link to="/register">Register as Coach</base-button>
+        <base-button link to="/register" v-if="!isCoach"
+          >Register as Coach</base-button
+        >
       </div>
       <ul v-if="hasCoaches">
         <coach-item
-          v-for="coach in coachesList"
+          v-for="coach in filteredCoaches"
           :key="coach.id"
           :id="coach.id"
           :firstName="coach.firstName"
@@ -23,18 +27,50 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import CoachItem from '../../components/coaches/CoachItem.vue';
-import BaseButton from '../../components/ui/BaseButton.vue';
+import CoachFilter from '../../components/coaches/CoachFilter.vue';
 
 export default {
   components: {
     CoachItem,
-    BaseButton,
+    CoachFilter,
+  },
+  data() {
+    return {
+      activeFilters: {
+        frontend: true,
+        backend: true,
+        career: true,
+      },
+    };
   },
   computed: {
-    ...mapGetters('coaches', ['hasCoaches', 'coachesList']),
+    filteredCoaches() {
+      const coaches = this.$store.getters['coaches/coachesList'];
+      return coaches.filter((coach) => {
+        if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
+          return true;
+        }
+        if (this.activeFilters.backend && coach.areas.includes('backend')) {
+          return true;
+        }
+        if (this.activeFilters.career && coach.areas.includes('career')) {
+          return true;
+        }
+        return false;
+      });
+    },
+    hasCoaches() {
+      return this.$store.getters['coaches/hasCoaches'];
+    },
+    isCoach() {
+      return this.$store.getters['coaches/isCoach'];
+    },
+  },
+  methods: {
+    setFilters(updatedFilters) {
+      this.activeFilters = updatedFilters;
+    },
   },
 };
 </script>
