@@ -125,7 +125,7 @@ export default {
         this.description.isValid = false;
         this.formIsValid = false;
       }
-      if (!this.rate.val || this.raet.val < 0) {
+      if (!this.rate.val || this.rate.val < 0) {
         this.rate.isValid = false;
         this.formIsValid = false;
       }

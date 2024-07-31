@@ -11,12 +11,15 @@
     <div class="actions">
       <base-button>Send a message</base-button>
     </div>
-    <p v-if="!formIsValid">Please enter a valid email and non-empty message.</p>
+    <p v-if="!formIsValid" class="errors">
+      Please enter a valid email and non-empty message.
+    </p>
   </form>
 </template>
 
 <script>
 export default {
+  // props: ['id'],
   data() {
     return {
       email: '',
@@ -34,7 +37,13 @@ export default {
         return;
       }
 
-      // send a message if no error
+      this.$store.dispatch('requests/contactCoach', {
+        coachId: this.$route.params.id,
+        email: this.email,
+        message: this.message,
+      });
+
+      this.$router.replace('/coaches');
     },
   },
 };
