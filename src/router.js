@@ -5,7 +5,7 @@ import CoachDetail from './pages/coaches/CoachDetail.vue';
 import CoachRegistration from './pages/coaches/CoachRegistration.vue';
 import ContactCoach from './pages/requests/ContactCoach.vue';
 import RequestList from './pages/requests/RequestsList.vue';
-// import NotFound from './pages/NotFound.vue';
+import NotFound from './pages/NotFound.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -39,7 +39,7 @@ const router = createRouter({
     },
     {
       path: '/:notFound(.*)',
-      component: null,
+      component: NotFound,
     },
   ],
 });
